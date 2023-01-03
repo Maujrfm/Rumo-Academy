@@ -1,6 +1,6 @@
 programa
 {
-	real quilometroRodado, litrosAbastecido,consumoMedio
+	real distanciaDisponivel, litrosAbastecido,consumoMedio
 	
 	funcao inicio()
 	{
@@ -10,19 +10,19 @@ programa
 			receberValores()
 			valoresPositivos=validarDados()
 		}
-		mediaConsumo()
+		autonomiaVeiculo()
 		
 	}
 	funcao receberValores(){
-		escreva("\nPor favor digite a quantidade de Quilometros Rodado: ")
-		leia(quilometroRodado)
-		escreva("\nPor favor digite a quantidade de Litos Abastecidos: ")
+		escreva("\nPor favor digite a quantidade de Litros no Veiculo: ")
 		leia(litrosAbastecido)
+		escreva("\nPor favor digite o Consumo medio do Veiculo: ")
+		leia(consumoMedio)
 	}
 	funcao logico validarDados(){
-		enquanto(quilometroRodado<=0)
+		enquanto(consumoMedio<=0)
 		{
-			escreva("Não pode ter Quilometro negativo ou igual a 0")
+			escreva("Não pode ter Consumo negativo ou igual a 0")
 			retorne falso
 		}
 		enquanto(litrosAbastecido<=0)
@@ -32,17 +32,18 @@ programa
 		}
 		retorne verdadeiro
 	}
-	funcao mediaConsumo(){
-		consumoMedio=quilometroRodado/litrosAbastecido
-		escreva("\n A media do veiculo é: "+consumoMedio+"Km/L")
+	funcao autonomiaVeiculo(){
+		distanciaDisponivel=litrosAbastecido*consumoMedio
+		escreva("\n Este Veiculo pode percorrer: "+distanciaDisponivel+"Km")
 	}
 }
+
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 912; 
+ * @POSICAO-CURSOR = 574; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
