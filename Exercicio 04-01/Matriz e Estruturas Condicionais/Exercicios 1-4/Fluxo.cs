@@ -76,7 +76,9 @@ namespace Exercicios_1_4
         }
         public void exercicioDois()
         {
+            NumerosPositivos numerosPositivos = new NumerosPositivos();
             Console.WriteLine("Menu 2 funcionando");
+            numerosPositivos.CapturaDados();
         }
         public void exercicioTres()
         {
