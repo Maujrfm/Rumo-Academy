@@ -1,6 +1,4 @@
-﻿
-using Exercicios_1_4.Entities;
-
+﻿using Exercicios_1_4.Entities;
 namespace Exercicios_1_4
 {
     internal class Fluxo
@@ -25,28 +23,28 @@ namespace Exercicios_1_4
                 {
                     Console.Clear();
                     exercicioUm();
-                    menuSeletor = 0;
+                    menuSeletor = 6;
                 }
                 else if (menuSeletor == 2)
                 {
                     
                     Console.Clear();
                     exercicioDois();
-                    menuSeletor = 0;
+                    menuSeletor = 6;
                 }
                 else if (menuSeletor == 3)
                 {
                     
                     Console.Clear();
                     exercicioTres();
-                    menuSeletor = 0;
+                    menuSeletor = 6;
                 }
                 else if (menuSeletor == 4)
                 {
                    
                     Console.Clear();
                     exercicioQuatro();
-                    menuSeletor = 0;
+                    menuSeletor = 6;
                 }
                 else if (menuSeletor == 5)
                 {
@@ -67,24 +65,24 @@ namespace Exercicios_1_4
             }
         }
 
-        public void exercicioUm()
+        private void exercicioUm()
         {
             MediaNotas mediaNotas = new MediaNotas();
-            Console.WriteLine("Menu 1 funcionando");
             mediaNotas.CapturaDados();
             
         }
-        public void exercicioDois()
+        private void exercicioDois()
         {
             NumerosPositivos numerosPositivos = new NumerosPositivos();
-            Console.WriteLine("Menu 2 funcionando");
             numerosPositivos.CapturaDados();
         }
-        public void exercicioTres()
+        private void exercicioTres()
         {
-            Console.WriteLine("Menu 3 funcionando");
+            MostrarMaisVelho mostrarMaisVelho = new MostrarMaisVelho();
+            mostrarMaisVelho.Executar();
+           
         }
-        public void exercicioQuatro()
+        private void exercicioQuatro()
         {
             Console.WriteLine("Menu 4 funcionando");
         }
