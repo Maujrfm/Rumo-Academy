@@ -23,6 +23,7 @@ namespace Exercicios_1_4
                 {
                     Console.Clear();
                     exercicioUm();
+                    Console.ReadKey();
                     menuSeletor = 6;
                 }
                 else if (menuSeletor == 2)
@@ -30,6 +31,7 @@ namespace Exercicios_1_4
                     
                     Console.Clear();
                     exercicioDois();
+                    Console.ReadKey();
                     menuSeletor = 6;
                 }
                 else if (menuSeletor == 3)
@@ -37,6 +39,7 @@ namespace Exercicios_1_4
                     
                     Console.Clear();
                     exercicioTres();
+                    Console.ReadKey();
                     menuSeletor = 6;
                 }
                 else if (menuSeletor == 4)
@@ -44,6 +47,7 @@ namespace Exercicios_1_4
                    
                     Console.Clear();
                     exercicioQuatro();
+                    Console.ReadKey();
                     menuSeletor = 6;
                 }
                 else if (menuSeletor == 5)
@@ -84,7 +88,8 @@ namespace Exercicios_1_4
         }
         private void exercicioQuatro()
         {
-            Console.WriteLine("Menu 4 funcionando");
+            LucroProduto lucroProduto = new LucroProduto();
+            lucroProduto.Executar();
         }
 
 
