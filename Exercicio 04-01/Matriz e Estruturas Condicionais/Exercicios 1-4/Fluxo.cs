@@ -3,8 +3,11 @@ namespace Exercicios_1_4
 {
     internal class Fluxo
     {
-        
-        public void Menu()
+        public void Executar()
+        {
+            Menu();
+        }
+        private void Menu()
         {
             Console.WriteLine("################################################");
             Console.WriteLine("########EXERCICIOS MATRIZ E CONDICIONAIS########");
