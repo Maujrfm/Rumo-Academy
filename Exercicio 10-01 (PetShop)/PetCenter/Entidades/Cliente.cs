@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utilitarios;
 
 namespace PetCenter.Entidades
 {
@@ -13,8 +14,6 @@ namespace PetCenter.Entidades
         private DateTime DataNascimento { get; set; }
 
         private List<Cliente> Clientes = new List<Cliente>();
-
-
 
         public Cliente()
         {
@@ -42,7 +41,8 @@ namespace PetCenter.Entidades
             Console.WriteLine("1 - Cadastrar Cliente. ");
             Console.WriteLine("2 - Mostrar Clientes cadastrados. ");
             Console.WriteLine("3 - Buscar Cliente por CPF.");
-            Console.WriteLine("4 - Fechar o programa.");
+            Console.WriteLine("4 - Listar Aniversariantes.");
+            Console.WriteLine("5 - Fechar o programa.");
             int menuSeletor = int.Parse(Console.ReadLine());
             while (menuSeletor != 0)
             {
@@ -72,6 +72,14 @@ namespace PetCenter.Entidades
                 else if (menuSeletor == 4)
                 {
 
+                    Console.Clear();
+                    ListarAniversariantesMes();
+                    Console.ReadKey();
+                    menuSeletor = 6;
+                }
+                else if (menuSeletor == 5)
+                {
+
                     menuSeletor = 0;
                 }
                 else
@@ -82,15 +90,28 @@ namespace PetCenter.Entidades
                     Console.WriteLine("1 - Cadastrar Cliente. ");
                     Console.WriteLine("2 - Mostrar Clientes cadastrados. ");
                     Console.WriteLine("3 - Buscar Cliente por CPF.");
-                    Console.WriteLine("4 - Fechar o programa.");
+                    Console.WriteLine("4 - Listar Aniversariantes.");
+                    Console.WriteLine("5 - Fechar o programa.");
                     menuSeletor = int.Parse(Console.ReadLine());
                 }
             }
         }
         private void CadastrarCliente()
         {
-            Console.WriteLine("Por favor Insira o nome do Cliente: ");
-            Nome = Console.ReadLine();
+            
+            while (true)
+            {
+                Console.WriteLine("Por favor Insira o nome do Cliente: ");
+                string nomeDigitado = Console.ReadLine().Trim();
+                var nomeCorreto = Util.ValidarNomeCliente(nomeDigitado);
+                if (!nomeCorreto)
+                {
+                    Console.WriteLine("O nome deve ter de 3-80 caracteres, digite novamente.");
+                    continue;
+                }
+                Nome = nomeDigitado;
+                break;
+            }
             Console.WriteLine("Por favor digite o CPF do Cliente:");
             Cpf = Console.ReadLine();
             Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
@@ -103,9 +124,9 @@ namespace PetCenter.Entidades
         {
             foreach (Cliente cliente in Clientes)
             {
-                Console.WriteLine("Cliente Nome: " + cliente.Nome);
+                Console.WriteLine("Cliente Nome: " + cliente.Nome.ToUpper());
                 Console.WriteLine("CPF: " + cliente.Cpf);
-                Console.WriteLine("Data de Nascimento: " + cliente.DataNascimento);
+                Console.WriteLine("Data de Nascimento: " + cliente.DataNascimento.ToString("dd/MM/yyyy"));
             }
         }
 
@@ -133,15 +154,41 @@ namespace PetCenter.Entidades
                     Clientes.RemoveAll(x => x.Cpf == cpfBusca);
                     string nome, cpf;
                     DateTime dataNascimento;
-                    Console.WriteLine("Por favor Insira o nome do Cliente: ");
-                    nome = Console.ReadLine();
+                    while (true)
+                    {
+                        Console.WriteLine("Por favor Insira o nome do Cliente: ");
+                        nome = Console.ReadLine();
+                        var nomeCorreto = Util.ValidarNomeCliente(nome);
+                        if (!nomeCorreto)
+                        {
+                            Console.WriteLine("O nome deve ter de 3-80 caracteres, digite novamente.");
+                            continue;
+                        }
+                        Nome = nome;
+                        break;
+                    }
                     Console.WriteLine("Por favor digite o CPF do Cliente:");
                     cpf = Console.ReadLine();
                     Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
                     dataNascimento = DateTime.Parse(Console.ReadLine());
                     Clientes.Add(new Cliente(nome, cpf, dataNascimento));
-
                 }
+            }
+        }
+
+        private void ListarAniversariantesMes()
+        {
+            DateTime mesAtual = DateTime.Now;
+            var clienteExiste = Clientes.Where(x => x.DataNascimento.Month == mesAtual.Month).ToList();
+            foreach (var cliente in clienteExiste)
+            {
+                Console.WriteLine("Nome: " + cliente.Nome.ToUpper());
+                Console.WriteLine("CPF: " + cliente.Cpf);
+                Console.WriteLine("Data Nascimento: " + cliente.DataNascimento.ToString("dd/MM/yyyy"));
+            }
+            if (clienteExiste.Count() == 0)
+            {
+                Console.WriteLine("Não Existem aniversariantes este mes.");
             }
         }
 
