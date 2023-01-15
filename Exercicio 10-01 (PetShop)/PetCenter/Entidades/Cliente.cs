@@ -152,7 +152,6 @@ namespace PetCenter.Entidades
             Clientes.Add(new Cliente(Nome, Cpf, DataNascimento));
 
         }
-
         private void MostrarClientesCadastrados()
         {
             foreach (Cliente cliente in Clientes)
@@ -162,7 +161,6 @@ namespace PetCenter.Entidades
                 Console.WriteLine("Data de Nascimento: " + cliente.DataNascimento.ToString("dd/MM/yyyy"));
             }
         }
-
         private void BuscarClientesPorCpf()
         {
             string cpfBusca;
@@ -252,7 +250,6 @@ namespace PetCenter.Entidades
                 }
             }
         }
-
         private void ListarAniversariantesMes()
         {
             DateTime mesAtual = DateTime.Now;

@@ -16,7 +16,6 @@ namespace Utilitarios
 
             return true;
         }
-
         public static bool ValidiadorCPF(string? cpfDigitado)
         {
             if (string.IsNullOrEmpty(cpfDigitado))
@@ -78,7 +77,6 @@ namespace Utilitarios
                 return false;
             }
         }
-
         public static bool ValidadorData(string? dataDigitada)
         {
             if (string.IsNullOrEmpty(dataDigitada))
