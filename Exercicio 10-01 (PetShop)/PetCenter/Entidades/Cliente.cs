@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,7 +99,7 @@ namespace PetCenter.Entidades
         }
         private void CadastrarCliente()
         {
-            
+
             while (true)
             {
                 Console.WriteLine("Por favor Insira o nome do Cliente: ");
@@ -124,16 +125,33 @@ namespace PetCenter.Entidades
                     Console.WriteLine("Por favor, digite um CPF Valido.");
                     continue;
                 }
-                
-                Cpf = cpfDigitado.Substring(0,3)+"."+cpfDigitado.Substring(3,3)+"."
-                    +cpfDigitado.Substring(6,3)+"-"+cpfDigitado.Substring(9,2);
+
+                Cpf = cpfDigitado.Substring(0, 3) + "." + cpfDigitado.Substring(3, 3) + "."
+                    + cpfDigitado.Substring(6, 3) + "-" + cpfDigitado.Substring(9, 2);
                 break;
             }
-            Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
-            DataNascimento = DateTime.Parse(Console.ReadLine());
+
+            while (true)
+            {
+                Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
+                string dataDigitada = Console.ReadLine();
+                dataDigitada = dataDigitada.Trim();
+                dataDigitada = dataDigitada.Replace("/", "").Replace("-", "");
+                var dataValida = Util.ValidadorData(dataDigitada);
+                if (!dataValida)
+                {
+                    Console.WriteLine("Por favor digite uma da Valida!");
+                    Console.WriteLine("Lembrando que a pessoa não pode ter menos de 16 anos e mais de 120 anos.");
+                    Console.WriteLine("Deve ser digitado no formato dd/MM/yyyy");
+                    continue;
+                }
+                dataDigitada = dataDigitada.Substring(0, 2) + "/" + dataDigitada.Substring(2, 2) + "/" + dataDigitada.Substring(4, 4);
+                DataNascimento = DateTime.Parse(dataDigitada);
+                break;
+            }
             Clientes.Add(new Cliente(Nome, Cpf, DataNascimento));
-            
-        }        
+
+        }
 
         private void MostrarClientesCadastrados()
         {
@@ -168,9 +186,9 @@ namespace PetCenter.Entidades
             var clienteExiste = Clientes.Where(x => x.Cpf == cpfBusca).ToList();
             foreach (var cliente in clienteExiste)
             {
-                Console.WriteLine("Nome: "+cliente.Nome);
-                Console.WriteLine("CPF: "+cliente.Cpf);
-                Console.WriteLine("Data Nascimento: "+cliente.DataNascimento);
+                Console.WriteLine("Nome: " + cliente.Nome);
+                Console.WriteLine("CPF: " + cliente.Cpf);
+                Console.WriteLine("Data Nascimento: " + cliente.DataNascimento);
             }
             if (clienteExiste.Count() == 0)
             {
@@ -180,7 +198,7 @@ namespace PetCenter.Entidades
             {
                 Console.WriteLine("Deseja realizar alguma alteração? (s/n)");
                 char menuAlteraCliente = char.Parse(Console.ReadLine());
-                if(menuAlteraCliente=='s')
+                if (menuAlteraCliente == 's')
                 {
                     Clientes.RemoveAll(x => x.Cpf == cpfBusca);
                     string nome, cpf;
@@ -195,7 +213,6 @@ namespace PetCenter.Entidades
                             Console.WriteLine("O nome deve ter de 3-80 caracteres, digite novamente.");
                             continue;
                         }
-                        Nome = nome;
                         break;
                     }
                     while (true)
@@ -215,8 +232,22 @@ namespace PetCenter.Entidades
                             + cpfDigitado.Substring(6, 3) + "-" + cpfDigitado.Substring(9, 2);
                         break;
                     }
-                    Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
-                    dataNascimento = DateTime.Parse(Console.ReadLine());
+                    while (true)
+                    {
+                        Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
+                        string dataDigitada = Console.ReadLine();
+                        dataDigitada = dataDigitada.Trim();
+                        dataDigitada = dataDigitada.Replace("/", "").Replace("-", "");
+                        var dataValida = Util.ValidadorData(dataDigitada);
+                        if (!dataValida)
+                        {
+                            Console.WriteLine("Por favor digite uma da Valida, lembrando que a pessoa não pode ter menos de 16 anos e mais de 120 anos.");
+                            continue;
+                        }
+                        dataDigitada = dataDigitada.Substring(0, 2) + "/" + dataDigitada.Substring(2, 2) + "/" + dataDigitada.Substring(4, 4);
+                        dataNascimento = DateTime.Parse(dataDigitada);
+                        break;
+                    }
                     Clientes.Add(new Cliente(nome, cpf, dataNascimento));
                 }
             }

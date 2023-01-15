@@ -1,4 +1,5 @@
-﻿namespace Utilitarios
+﻿
+namespace Utilitarios
 {
     public static class Util
     {
@@ -80,8 +81,27 @@
 
         public static bool ValidadorData(string? dataDigitada)
         {
-
-            return true;
+            if (string.IsNullOrEmpty(dataDigitada))
+            {
+                return false;
+            }
+            if (dataDigitada.Length < 8)
+            {
+                return false;
+            }
+            dataDigitada = dataDigitada.Substring(0, 2) + "/" + dataDigitada.Substring(2, 2) + "/" + dataDigitada.Substring(4, 4);
+            DateTime dataFormatada = DateTime.Parse(dataDigitada);
+            DateTime dataAtual = DateTime.Now;
+            var calculoAnos = (dataFormatada.Subtract(dataAtual));
+            double totalAnos = (calculoAnos.TotalDays) / 365;
+            if (totalAnos >= 16.0 || totalAnos <= 120.0)
+            {
+                return true;
+            }           
+            else
+            {
+                return false;
+            }
         }
 
     }
