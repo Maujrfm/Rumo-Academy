@@ -112,8 +112,23 @@ namespace PetCenter.Entidades
                 Nome = nomeDigitado;
                 break;
             }
-            Console.WriteLine("Por favor digite o CPF do Cliente:");
-            Cpf = Console.ReadLine();
+            while (true)
+            {
+                Console.WriteLine("Por favor digite o CPF do Cliente:");
+                string cpfDigitado = Console.ReadLine();
+                cpfDigitado = cpfDigitado.Trim();
+                cpfDigitado = cpfDigitado.Replace(".", "").Replace("-", "");
+                var cpfValido = Util.ValidiadorCPF(cpfDigitado);
+                if (!cpfValido)
+                {
+                    Console.WriteLine("Por favor, digite um CPF Valido.");
+                    continue;
+                }
+                
+                Cpf = cpfDigitado.Substring(0,3)+"."+cpfDigitado.Substring(3,3)+"."
+                    +cpfDigitado.Substring(6,3)+"-"+cpfDigitado.Substring(9,2);
+                break;
+            }
             Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
             DataNascimento = DateTime.Parse(Console.ReadLine());
             Clientes.Add(new Cliente(Nome, Cpf, DataNascimento));
@@ -132,8 +147,24 @@ namespace PetCenter.Entidades
 
         private void BuscarClientesPorCpf()
         {
-            Console.WriteLine("Digite o CPF que deseja buscar: ");
-            string cpfBusca = Console.ReadLine();
+            string cpfBusca;
+            while (true)
+            {
+                Console.WriteLine("Por favor digite o CPF do Cliente:");
+                string cpfDigitado = Console.ReadLine();
+                cpfDigitado = cpfDigitado.Trim();
+                cpfDigitado = cpfDigitado.Replace(".", "").Replace("-", "");
+                var cpfValido = Util.ValidiadorCPF(cpfDigitado);
+                if (!cpfValido)
+                {
+                    Console.WriteLine("Por favor, digite um CPF Valido.");
+                    continue;
+                }
+
+                cpfBusca = cpfDigitado.Substring(0, 3) + "." + cpfDigitado.Substring(3, 3) + "."
+                    + cpfDigitado.Substring(6, 3) + "-" + cpfDigitado.Substring(9, 2);
+                break;
+            }
             var clienteExiste = Clientes.Where(x => x.Cpf == cpfBusca).ToList();
             foreach (var cliente in clienteExiste)
             {
@@ -167,8 +198,23 @@ namespace PetCenter.Entidades
                         Nome = nome;
                         break;
                     }
-                    Console.WriteLine("Por favor digite o CPF do Cliente:");
-                    cpf = Console.ReadLine();
+                    while (true)
+                    {
+                        Console.WriteLine("Por favor digite o CPF do Cliente:");
+                        string cpfDigitado = Console.ReadLine();
+                        cpfDigitado = cpfDigitado.Trim();
+                        cpfDigitado = cpfDigitado.Replace(".", "").Replace("-", "");
+                        var cpfValido = Util.ValidiadorCPF(cpfDigitado);
+                        if (!cpfValido)
+                        {
+                            Console.WriteLine("Por favor, digite um CPF Valido.");
+                            continue;
+                        }
+
+                        cpf = cpfDigitado.Substring(0, 3) + "." + cpfDigitado.Substring(3, 3) + "."
+                            + cpfDigitado.Substring(6, 3) + "-" + cpfDigitado.Substring(9, 2);
+                        break;
+                    }
                     Console.WriteLine("Por favor digite a Data de Nascimento do Cliente: ");
                     dataNascimento = DateTime.Parse(Console.ReadLine());
                     Clientes.Add(new Cliente(nome, cpf, dataNascimento));
